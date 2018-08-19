@@ -1,0 +1,5 @@
+package br.com.transportadoraBR.modulocontrolefrete.controller;
+
+public class FreteController {
+
+}

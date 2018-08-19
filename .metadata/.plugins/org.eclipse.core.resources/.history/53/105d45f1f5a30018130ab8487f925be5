@@ -1,0 +1,22 @@
+package br.com.transportadoraBR.modulocontrolecoletadefinicaocargas.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class SolicitacaoController {
+
+	@SuppressWarnings("static-access")
+	@RequestMapping(value = "teste", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String getStringTest(HttpServletRequest req,HttpServletResponse res) {
+		if(req.getHeader("x-force")!=null) {
+			return "teste";
+		}
+		return String.valueOf(res.SC_FORBIDDEN);
+		
+	}
+}

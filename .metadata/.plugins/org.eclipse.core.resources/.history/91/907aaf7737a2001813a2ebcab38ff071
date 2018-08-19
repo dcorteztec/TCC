@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+      healthcheck:
+      enabled: true
+
+zuul:
+  routes:
+    auth-center:
+      path: /login/**
+      url: http://127.0.0.1:8083/
+      sensitiveHeaders: Cookie,Set-Cookie
+      stripPrefix: false
+    modulo-controle-coleta-definicao-cargas:
+      path: /modulo-coleta/**
+      url: http://127.0.0.1:8081/
+    modulo-controle-frete:
+      path: /modulo-frete/**
+      url: http://127.0.0.1:8082/
+
+shuaicj.security.jwt.secret: otherpeopledontknowit

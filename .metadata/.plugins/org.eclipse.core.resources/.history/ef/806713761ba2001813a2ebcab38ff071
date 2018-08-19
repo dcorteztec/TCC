@@ -1,0 +1,8 @@
+server:
+  port: 8083
+  
+spring:
+  application:
+    name: api-gateway
+    
+shuaicj.security.jwt.secret: otherpeopledontknowit

@@ -1,0 +1,8 @@
+server:
+  port: 8082
+  
+spring:
+  application:
+    name: modulo-controle-frete
+
+shuaicj.security.jwt.secret: otherpeopledontknowit

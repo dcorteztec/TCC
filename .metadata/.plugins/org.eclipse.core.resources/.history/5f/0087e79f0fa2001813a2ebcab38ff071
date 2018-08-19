@@ -1,0 +1,8 @@
+server:
+  port: 8081
+  
+spring:
+  application:
+    name: modulo-controle-coleta-definicao-cargas
+
+shuaicj.security.jwt.secret: otherpeopledontknowit

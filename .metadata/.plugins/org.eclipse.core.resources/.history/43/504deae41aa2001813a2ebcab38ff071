@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+
+zuul:
+  routes:
+    modulo-controle-coleta-definicao-cargas:
+      path: /modulo-coleta/**
+      url: http://127.0.0.1:8081/
+    modulo-controle-frete:
+      path: /modulo-frete/**
+      url: http://127.0.0.1:8082/
+
+shuaicj.security.jwt.secret: otherpeopledontknowit

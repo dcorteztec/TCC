@@ -44,7 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/modulo-coleta/**").hasRole("ADMIN")
                     .antMatchers("/modulo-coleta/**").hasRole("USER")
                     .antMatchers("/modulo-frete/**").hasRole("ADMIN")
-                    .antMatchers("/modulo-frete/**").hasRole("USER");
+                    .antMatchers("/modulo-frete/**").hasRole("USER")
+                    .antMatchers("/actuator/**").permitAll();
     }
 
 }

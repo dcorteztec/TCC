@@ -19,7 +19,17 @@ spring:
     url: jdbc:postgresql://localhost:5432/transportadoraBR
     username: postgres
     password: root
-    
+
+info:
+  app:
+    name: Módulo controle coleta e definição de cargas
+    description: para acesso, aos serviços, acesse o serviço do login /login
+
+management:
+  endpoint:
+    beans:
+      enabled: true
+
 eureka:
   instance:
     leaseRenewalIntervalInSeconds: 5

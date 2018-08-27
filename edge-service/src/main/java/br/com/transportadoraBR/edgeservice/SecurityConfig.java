@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.session.SessionManagementFilter;
 
 import br.com.transportadoraBR.edgeservice.jwt.JwtAuthenticationConfig;
 import br.com.transportadoraBR.edgeservice.jwt.JwtTokenAuthenticationFilter;
@@ -23,11 +24,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public JwtAuthenticationConfig jwtConfig() {
         return new JwtAuthenticationConfig();
     }
+    
+
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf().disable()
+                .cors().and()
                 .logout().disable()
                 .formLogin().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

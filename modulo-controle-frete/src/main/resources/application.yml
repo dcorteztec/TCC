@@ -4,7 +4,26 @@ server:
 spring:
   application:
     name: modulo-controle-frete
-
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQLDialect
+          jdbc: 
+            lob:  
+              non_contextual_creation: true
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/transportadoraBR
+    username: postgres
+    password: root
+    
+info:
+  app:
+    name: Módulo controle de frete
+    description: para acesso, aos serviços, acesse o serviço do login /login
 eureka:
   instance:
     leaseRenewalIntervalInSeconds: 5

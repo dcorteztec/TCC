@@ -35,7 +35,7 @@ public class Solicitacao extends AuditModel{
 	@JoinColumn(name = "id_empresa", nullable = true)
 	private EmpresaParceira empresaParceira;
 	@ManyToOne
-	@JoinColumn(name = "id_transportadora", nullable = false)
+	@JoinColumn(name = "id_transportadora", nullable = true)
 	private TransportadoraParceira transportadoraParceira;
        
 	public Long getNumeroSolic() {

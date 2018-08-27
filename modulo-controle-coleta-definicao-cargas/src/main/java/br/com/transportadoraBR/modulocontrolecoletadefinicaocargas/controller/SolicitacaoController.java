@@ -18,8 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.transportadoraBR.modulocontrolecoletadefinicaocargas.domain.EmpresaParceira;
 import br.com.transportadoraBR.modulocontrolecoletadefinicaocargas.domain.Solicitacao;
+import br.com.transportadoraBR.modulocontrolecoletadefinicaocargas.domain.TransportadoraParceira;
+import br.com.transportadoraBR.modulocontrolecoletadefinicaocargas.repository.EmpresaParceiraRepository;
 import br.com.transportadoraBR.modulocontrolecoletadefinicaocargas.repository.SolicitacaoRepository;
+import br.com.transportadoraBR.modulocontrolecoletadefinicaocargas.repository.TransportadoraParceiraRepository;
 import br.com.transportadoraBR.modulocontrolecoletadefinicaocargas.util.Utils;
 
 @RestController
@@ -28,26 +32,47 @@ public class SolicitacaoController {
 	@Autowired
 	private SolicitacaoRepository repository;
 	
+	@Autowired
+	private EmpresaParceiraRepository empresaParceiraRepository;
+	
+	@Autowired
+	private TransportadoraParceiraRepository transportadoraRepository;
+	
 	@RequestMapping(value="listSolic" ,method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	private List<Solicitacao> listSolic(HttpServletRequest req, HttpServletResponse res){
+	private ResponseEntity<List<Solicitacao>> listSolic(HttpServletRequest req, HttpServletResponse res){
 		if(Utils.verificarHeader(req)) {
-			return repository.findAll();
+			List<Solicitacao> list = repository.findAll();
+			return new ResponseEntity<List<Solicitacao>>(list, HttpStatus.OK);
 		}
-		return null;
+		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).build();
 	}
 	
 	@RequestMapping(value = "solicitacao/{numeroSolic}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	private Optional<Solicitacao> getSolic(@PathVariable("numeroSolic") Long numeroSolic,HttpServletRequest req, HttpServletResponse res) {
+	private ResponseEntity<Optional<Solicitacao>> getSolic(@PathVariable("numeroSolic") Long numeroSolic,HttpServletRequest req, HttpServletResponse res) {
 		if(Utils.verificarHeader(req)) {
-			return repository.findById(numeroSolic);
+			Optional<Solicitacao> solicitacao = repository.findById(numeroSolic);
+			return new ResponseEntity<Optional<Solicitacao>>(solicitacao,HttpStatus.OK);
 		}
-		return null;
+		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).build();
 		
 	}
 	
 	@PostMapping(value="saveSolic")
 	private ResponseEntity<Object> saveSolic(@RequestBody Solicitacao solicitacao,HttpServletRequest req, HttpServletResponse res) {
 		if(Utils.verificarHeader(req)) {
+			if(solicitacao.getEmpresaParceira()!=null) {
+				EmpresaParceira empresa = empresaParceiraRepository.findByName(solicitacao.getEmpresaParceira().getNome());
+				if(empresa==null) {
+					empresaParceiraRepository.save(solicitacao.getEmpresaParceira());
+				}
+			}
+			if(solicitacao.getDemandaTransferida()&&solicitacao.getTransportadoraParceira()!=null) {
+				TransportadoraParceira transportadora = transportadoraRepository.findByName(solicitacao.getTransportadoraParceira().getNome());
+				if(transportadora==null) {
+					transportadoraRepository.save(solicitacao.getTransportadoraParceira());
+				}
+			}
+			repository.flush();
 			repository.save(solicitacao);
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -70,7 +95,7 @@ public class SolicitacaoController {
 		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).build();
 	}
 	
-	@DeleteMapping("deslete/{id}")
+	@DeleteMapping("delete/{id}")
 	public void deleteSolicitacao(@PathVariable long id) {
 		repository.deleteById(id);
 	}

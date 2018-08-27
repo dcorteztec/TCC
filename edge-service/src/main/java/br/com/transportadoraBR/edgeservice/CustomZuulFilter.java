@@ -1,5 +1,7 @@
 package br.com.transportadoraBR.edgeservice;
 
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -34,8 +36,8 @@ public class CustomZuulFilter extends ZuulFilter{
 	    RequestContext ctx = RequestContext.getCurrentContext();
 	    HttpServletRequest request = ctx.getRequest();
 	    ctx.addZuulRequestHeader("x-force", "zuul-api");
+	    ctx.addZuulRequestHeader("Authorization",request.getHeader("‌​Authorization")); 	
 	    log.info(String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
-
 	    return null;
 	  }
 }

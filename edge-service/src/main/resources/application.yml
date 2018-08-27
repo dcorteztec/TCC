@@ -15,8 +15,6 @@ management:
       exposure:
         include: "*" 
       
-
-
 spring:
   application:
     name: api-gateway
@@ -30,11 +28,12 @@ eureka:
 
 zuul:
   ignoredServices: '*'
+  sensitiveHeaders: Cookie,Set-Cookie
+  ignoreSecurityHeaders: false
   routes:
     auth-center:
       path: /login/**
       url: http://127.0.0.1:8083/
-      sensitiveHeaders: Cookie,Set-Cookie
       stripPrefix: false
     modulo-controle-coleta-definicao-cargas:
       path: /modulo-coleta/**

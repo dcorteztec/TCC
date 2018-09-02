@@ -1,0 +1,82 @@
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark bg-blue scrolling-navbar" [containerInside]="true">
+    <logo>
+        <a class="logo navbar-brand" routerLink="/home"><strong>Navbar</strong></a>
+    </logo>
+    <links>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active waves-light" mdbRippleRadius>
+                <a class="nav-link" routerLink="/home" >Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item waves-light" mdbRippleRadius>
+                <a class="nav-link" routerLink="/modulo-coleta">Solicitação de Coleta</a>
+            </li>
+            <li class="nav-item waves-light" mdbRippleRadius>
+                <a class="nav-link" routerLink="/modulo-frete">Tabela de Frete</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav nav-flex-icons">
+            <li class="nav-item waves-light" mdbRippleRadius>
+                <a class="nav-link"><i class="fa fa-facebook"></i></a>
+            </li>
+            <li class="nav-item waves-light" mdbRippleRadius>
+                <a class="nav-link"><i class="fa fa-twitter"></i></a>
+            </li>
+            <li class="nav-item waves-light" mdbRippleRadius>
+                <a class="nav-link"><i class="fa fa-instagram"></i></a>
+            </li>
+        </ul>
+    </links>
+</mdb-navbar>
+<!-- Main -->
+<main>
+    <div class="container" style="height:1300px;">
+                <section>
+                    <header class="header">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h1>Solicitações</h1>
+                            </div>
+                            <div class="col-md-6">
+                                
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-primary" (click)="redirectNovaSolicitacaoPage()">Nova Solicitação</button>
+                            </div>
+                        </div>
+                        
+                    </header>
+                </section>
+                
+                <section class="main">
+                    
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Numero da Solicitação</th>
+                                <th>Data Solicitacao</th>
+                                <th>Data da Volta</th>
+                                <th>Nome do Solicitante</th>
+                                <th>Email do Solicitante</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let solic of solicitacoes">
+                                <td></td>
+                                <th scope="row">{{solic.numeroSolic}}</th>
+                                <td>{{solic.dataSolic | date:'dd-MM-yyyy'}}</td>
+                                <td>{{solic.dataVolta | date:'dd-MM-yyyy'}}</td>
+                                <td>{{solic.nomeSolic}} </td>
+                                <td>{{solic.emailSolic}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-success" (click)="editSolicitacaoPage(solic)">Edit</button>
+                                    <button type="button" class="btn btn-danger" (click)="deleteSolicitacao(solic)">Delete</button>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </section>     
+    </div>
+</main>

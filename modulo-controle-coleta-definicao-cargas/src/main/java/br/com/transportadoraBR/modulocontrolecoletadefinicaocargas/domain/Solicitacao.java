@@ -29,6 +29,8 @@ public class Solicitacao extends AuditModel{
 	private String nomeSolic;
 	private String emailSolic;
 	private String endeSolic;
+	private String cidade;
+	private String uf;
 	private String veiculo;
 	private Boolean demandaTransferida;
 	@ManyToOne
@@ -98,4 +100,17 @@ public class Solicitacao extends AuditModel{
 	public void setTransportadoraParceira(TransportadoraParceira transportadoraParceira) {
 		this.transportadoraParceira = transportadoraParceira;
 	}
+	public String getCidade() {
+		return cidade;
+	}
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+	public String getUf() {
+		return uf;
+	}
+	public void setUf(String uf) {
+		this.uf = uf;
+	}
+	
 }

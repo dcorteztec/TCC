@@ -13,7 +13,7 @@ import { ModuloColetaServiceService } from '../modulo-coleta-service.service'
 export class ModuloControleColetaComponent implements OnInit {
 
   solicitacoes: Solicitacao[];
-  selectedSolicitacao: Solicitacao;
+  solicitacao: Solicitacao;
   
   constructor(private router: Router, private moduloColetaService: ModuloColetaServiceService) { }
 
@@ -38,12 +38,13 @@ redirectNovaSolicitacaoPage() {
 
 editSolicitacaoPage(solicitacao: Solicitacao) {
   if (solicitacao) {
+    this.solicitacao = solicitacao;
     this.router.navigate(['/modulo-coleta-edit', solicitacao.numeroSolic]);
   }
 }
 
 onSelect(solicitacao: Solicitacao): void {
-  this.selectedSolicitacao = solicitacao;
+  this.solicitacao = solicitacao;
 }
 
 deleteSolicitacao(solicitacao: Solicitacao): void {
@@ -51,8 +52,8 @@ deleteSolicitacao(solicitacao: Solicitacao): void {
     .delete(solicitacao.numeroSolic)
     .then(() => {
         this.solicitacoes = this.solicitacoes.filter(h => h !== solicitacao);
-        if(this.selectedSolicitacao === solicitacao) {
-          this.selectedSolicitacao = null;
+        if(this.solicitacao === solicitacao) {
+          this.solicitacao = null;
       }
     });
 }

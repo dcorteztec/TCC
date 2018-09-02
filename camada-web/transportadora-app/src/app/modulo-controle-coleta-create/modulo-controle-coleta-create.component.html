@@ -1,6 +1,6 @@
 <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark bg-blue scrolling-navbar" [containerInside]="true">
     <logo>
-        <a class="logo navbar-brand" routerLink="/home"><strong>Navbar</strong></a>
+        <a class="logo navbar-brand" routerLink="/home"><strong>Transportadora BR</strong></a>
     </logo>
     <links>
         <ul class="navbar-nav mr-auto">
@@ -37,31 +37,35 @@
               <div class="form-group col-md-3">
                 <label for="inputEmail4">Data da Solicitação</label>
                 <input type="date" class="form-control" id="inputEmail4" name="dataSolic"  [(ngModel)]="solicitacao.dataSolic" #dataSolic="ngModel" required placeholder="Data da Solicitação">
-                <span *ngIf="f.submitted && !dataSolic.valid" class="help-block">Data da Solicitação obrigatório</span>
+                <span *ngIf="f.submitted && !dataSolic.valid" class="help-block">Data da Solicitação é obrigatório</span>
             </div>
               <div class="form-group col-md-3">
                 <label for="inputPassword4">Data da Volta</label>
-                <input type="date"  class="form-control" id="inputPassword4" placeholder="Data da Volta">
-              </div>
+                <input type="date"  class="form-control" id="inputPassword4" placeholder="Data da Volta" name="dataVolta"  [(ngModel)]="solicitacao.dataVolta" #dataVolta="ngModel" required>
+                <span *ngIf="f.submitted && !dataVolta.valid" class="help-block">Data da Volta é obrigatório</span>
+            </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                <label for="inputAddress">Nome do Solicitante</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="Nome do Solicitante">
+                    <label for="inputAddress">Nome do Solicitante</label>
+                    <input type="text" class="form-control" id="inputAddress" placeholder="Nome do Solicitante" name="nomeSolic"  [(ngModel)]="solicitacao.nomeSolic" #nomeSolic="ngModel" required>
+                    <span *ngIf="f.submitted && !nomeSolic.valid" class="help-block">Nome do Solicitante é obrigatório</span>
                 </div>
                 <div class="form-group col-md-5">
-                <label for="inputAddress2">Email</label>
-                <input type="email" class="form-control" id="inputAddress2" placeholder="Email">
+                    <label for="inputAddress2">Email</label>
+                    <input type="email" class="form-control" id="inputAddress2" placeholder="Email" name="emailSolic"  [(ngModel)]="solicitacao.emailSolic" #emailSolic="ngModel" required>
+                    <span *ngIf="f.submitted && !emailSolic.valid" class="help-block">Email do Solicitante é obrigatório</span>
                 </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="inputCity">Cidade</label>
-                <input type="text" class="form-control" id="inputCity" placeholder="Cidade">
-              </div>
+                <input type="text" class="form-control" id="inputCity" placeholder="Cidade" name="cidade"  [(ngModel)]="solicitacao.cidade" #cidade="ngModel"  required>
+                <span *ngIf="f.submitted && !cidade.valid" class="help-block">Cidade é obrigatório</span>
+            </div>
               <div class="form-group col-md-4">
                 <label for="inputState">Estado</label>
-                <select id="inputState" class="form-control">
+                <select id="inputState" class="form-control" name="uf"  [(ngModel)]="solicitacao.uf" #uf="ngModel" required>
                   <option selected>Uf...</option>
                   <option>Acre (AC)</option>
                   <option>Alagoas (AL)</option>
@@ -90,19 +94,29 @@
                   <option>Sergipe (SE)</option>
                   <option>Tocantins (TO)</option>
                 </select>
+                <span *ngIf="f.submitted && !uf.valid" class="help-block">Estado é obrigatório</span>
               </div>
+              <div class="form-group col-md-6">
+                <label for="inputZip">Veículo</label>
+                <input type="text" placeholder="Veículo" class="form-control" id="inputZip" name="veiculo" [(ngModel)]="solicitacao.veiculo" #veiculo="ngModel" required>
+                <span *ngIf="f.submitted && !veiculo.valid" class="help-block">Veículo é obrigatório</span>
+            </div>
             </div>
             <div class="form-group">
-                <div class="form-group col-md-6">
-                    <label for="inputZip">Veículo</label>
-                    <input type="text" placeholder="Veículo" class="form-control" id="inputZip">
-                </div>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck">
+                <input class="form-check-input" type="checkbox" id="gridCheck" name="demandaTransferida" [(ngModel)]="solicitacao.demandaTransferida" #demandaTransferida="ngModel"> 
                 <label class="form-check-label" for="gridCheck">
                   Demanda Transferida
                 </label>
               </div>
+              <div class="form-group col-md-4" id="uf">
+                <label for="inputState">Transportadora Parceira</label>
+                <select id="inputState" class="form-control" name="transportadora"  [(ngModel)]="solicitacao.idTransportadora" #transportadora="ngModel">
+                  <option  *ngFor='let transp of transportadoras' [value]="transp.codTransportadora">
+                    {{transp.nome}}
+                  </option>
+                </select>
+              </div>  
             </div>
             <button [disabled]="loading" class="btn btn-primary">Cadastrar</button>
           <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
@@ -112,3 +126,4 @@
     </section>
     </div>
   </main>
+  

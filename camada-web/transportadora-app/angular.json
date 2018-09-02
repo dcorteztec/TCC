@@ -29,7 +29,8 @@
             ],
             "scripts": [
               "../transportadora-app/node_modules/chart.js/dist/Chart.js",
-              "../transportadora-app/node_modules/hammerjs/hammer.min.js"
+              "../transportadora-app/node_modules/hammerjs/hammer.min.js",
+              "../transportadora-app/node_modules/jquery/dist/jquery.min.js"
             ]
           },
           "configurations": {

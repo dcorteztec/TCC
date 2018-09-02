@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 @Entity
@@ -33,6 +34,8 @@ public class Solicitacao extends AuditModel{
 	private String uf;
 	private String veiculo;
 	private Boolean demandaTransferida;
+	@Transient
+	private Long idTransportadora;
 	@ManyToOne
 	@JoinColumn(name = "id_empresa", nullable = true)
 	private EmpresaParceira empresaParceira;
@@ -111,6 +114,12 @@ public class Solicitacao extends AuditModel{
 	}
 	public void setUf(String uf) {
 		this.uf = uf;
+	}
+	public Long getIdTransportadora() {
+		return idTransportadora;
+	}
+	public void setIdTransportadora(Long idTransportadora) {
+		this.idTransportadora = idTransportadora;
 	}
 	
 }

@@ -1,3 +1,5 @@
+import { TransportadoraParceira } from './TransportadoraParceira'
+
 export class Solicitacao {
 
     numeroSolic: number;
@@ -7,10 +9,12 @@ export class Solicitacao {
     emailSolic: string;
     endeSolic: string;
     veiculo: string;
-    demandaTransferida: boolean;
+    demandaTransferida: Boolean;
     cidade:string;
     uf:string;
-  
+    transportadoraParceira:TransportadoraParceira;
+    idTransportadora:number;
+
     //constructor(numeroSolic: number, dataSolic: Date, dataVolta: Date, nomeSolic: string,
      //   emailSolic:string,endeSolic:string,veiculo:string,demandaTransferida:boolean,
      // cidade:string,uf:string){

@@ -8,7 +8,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 
-import { Solicitacao }from './Solicitacao'
+import { Solicitacao } from './Solicitacao'
+import { TransportadoraParceira } from './TransportadoraParceira'
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class ModuloColetaServiceService {
   private saveUrl = 'http://localhost:8080/modulo-coleta/saveSolic';
   private updateUrl = 'http://localhost:8080/modulo-coleta/update';
   private deleteteUrl = 'http://localhost:8080/modulo-coleta/delete';
+  private listTransp = 'http://localhost:8080/modulo-coleta/listTransportadora';
 
   private headers = new Headers({
     'Content-Type': 'application/json',
@@ -34,6 +36,15 @@ export class ModuloColetaServiceService {
    .get(this.listSolic, {headers: this.headers})
    .toPromise()
    .then(response => response.json() as Solicitacao[])
+   .catch(this.handleError);
+
+}
+
+findAllTransportadora(): Promise<TransportadoraParceira[]> {
+  return this.http
+   .get(this.listTransp, {headers: this.headers})
+   .toPromise()
+   .then(response => response.json() as TransportadoraParceira[])
    .catch(this.handleError);
 
 }

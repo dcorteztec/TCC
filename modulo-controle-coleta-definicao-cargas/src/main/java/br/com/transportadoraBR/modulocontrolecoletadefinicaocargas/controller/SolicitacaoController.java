@@ -47,6 +47,15 @@ public class SolicitacaoController {
 		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).build();
 	}
 	
+	@RequestMapping(value="listTransportadora" ,method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	private ResponseEntity<List<TransportadoraParceira>> listTransportadora(HttpServletRequest req, HttpServletResponse res){
+		if(Utils.verificarHeader(req)) {
+			List<TransportadoraParceira> list = transportadoraRepository.findAll();
+			return new ResponseEntity<List<TransportadoraParceira>>(list, HttpStatus.OK);
+		}
+		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).build();
+	}
+	
 	@RequestMapping(value = "solicitacao/{numeroSolic}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	private ResponseEntity<Optional<Solicitacao>> getSolic(@PathVariable("numeroSolic") Long numeroSolic,HttpServletRequest req, HttpServletResponse res) {
 		if(Utils.verificarHeader(req)) {
@@ -60,17 +69,20 @@ public class SolicitacaoController {
 	@PostMapping(value="saveSolic")
 	private ResponseEntity<Object> saveSolic(@RequestBody Solicitacao solicitacao,HttpServletRequest req, HttpServletResponse res) {
 		if(Utils.verificarHeader(req)) {
+			if(solicitacao.getDemandaTransferida()==null) {
+				solicitacao.setDemandaTransferida(false);
+			}
 			if(solicitacao.getEmpresaParceira()!=null) {
 				EmpresaParceira empresa = empresaParceiraRepository.findByName(solicitacao.getEmpresaParceira().getNome());
 				if(empresa==null) {
 					empresaParceiraRepository.save(solicitacao.getEmpresaParceira());
 				}
 			}
-			if(solicitacao.getDemandaTransferida()&&solicitacao.getTransportadoraParceira()!=null) {
-				TransportadoraParceira transportadora = transportadoraRepository.findByName(solicitacao.getTransportadoraParceira().getNome());
-				if(transportadora==null) {
-					transportadoraRepository.save(solicitacao.getTransportadoraParceira());
-				}
+			if(solicitacao.getDemandaTransferida()&&solicitacao.getIdTransportadora()!=null) {
+				Optional<TransportadoraParceira> transportadora = transportadoraRepository.findById(solicitacao.getIdTransportadora());
+					if(transportadora!=null&&transportadora.isPresent()) {
+						solicitacao.setTransportadoraParceira(transportadora.get());
+					}
 			}
 			repository.flush();
 			repository.save(solicitacao);

@@ -2,5 +2,8 @@ sudo: true
 language: java
 jdk:
 - oraclejdk8
+before_install:
+- chmod +x mvnw
+- chmod +x common/run.sh
 script:
 - common/run.sh

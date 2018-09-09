@@ -2,9 +2,9 @@ import { TransportadoraParceira } from './TransportadoraParceira'
 
 export class Solicitacao {
 
-    numeroSolic: number;
-    dataSolic: Date;
-    dataVolta: Date;
+    id:number;
+    dataSolic: string;
+    dataVolta: string;
     nomeSolic: string;
     emailSolic: string;
     endeSolic: string;

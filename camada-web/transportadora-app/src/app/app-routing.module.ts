@@ -6,15 +6,18 @@ import { ModuloControleColetaComponent} from './modulo-controle-coleta/modulo-co
 import { ModuloTabelaFreteComponent} from './modulo-tabela-frete/modulo-tabela-frete.component'
 import { ModuloControleColetaCreateComponent } from './modulo-controle-coleta-create/modulo-controle-coleta-create.component'
 import { CanActivateAuthGuard } from './CanActivateAuthGuard'
+import { ModuloControleTabelaCreateComponent } from './modulo-controle-tabela-create/modulo-controle-tabela-create.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'home',       component: HomeComponent, canActivate: [CanActivateAuthGuard] },
   { path: 'login',      component: LoginComponent},
   { path: 'modulo-coleta',      component: ModuloControleColetaComponent, canActivate: [CanActivateAuthGuard]},
-  { path: 'modulo-frete',       component: ModuloTabelaFreteComponent, canActivate: [CanActivateAuthGuard]},
   { path: 'modulo-coleta-create',      component: ModuloControleColetaCreateComponent, canActivate: [CanActivateAuthGuard]},
-  { path: 'modulo-coleta-edit/:id',      component: ModuloControleColetaCreateComponent, canActivate: [CanActivateAuthGuard]}
+  { path: 'modulo-coleta-edit/:id',      component: ModuloControleColetaCreateComponent, canActivate: [CanActivateAuthGuard]},
+  { path: 'modulo-frete',       component: ModuloTabelaFreteComponent, canActivate: [CanActivateAuthGuard]},
+  { path: 'modulo-frete-create',      component: ModuloControleTabelaCreateComponent, canActivate: [CanActivateAuthGuard]},
+  { path: 'modulo-frete-edit/:id',      component: ModuloControleTabelaCreateComponent, canActivate: [CanActivateAuthGuard]}
 
 ];
 

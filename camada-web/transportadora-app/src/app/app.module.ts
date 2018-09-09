@@ -16,6 +16,10 @@ import { CanActivateAuthGuard } from './CanActivateAuthGuard';
 import { ModuloControleColetaComponent } from './modulo-controle-coleta/modulo-controle-coleta.component';
 import { ModuloTabelaFreteComponent } from './modulo-tabela-frete/modulo-tabela-frete.component';
 import { ModuloControleColetaCreateComponent } from './modulo-controle-coleta-create/modulo-controle-coleta-create.component';
+import { ModuloControleTabelaCreateComponent } from './modulo-controle-tabela-create/modulo-controle-tabela-create.component';
+import { FilterPipePipe } from './filter-pipe.pipe';
+import {DataTableModule} from "angular-6-datatable";
+
 
 @NgModule({
   declarations: [
@@ -24,13 +28,16 @@ import { ModuloControleColetaCreateComponent } from './modulo-controle-coleta-cr
     LoginComponent,
     ModuloControleColetaComponent,
     ModuloTabelaFreteComponent,
-    ModuloControleColetaCreateComponent
+    ModuloControleColetaCreateComponent,
+    ModuloControleTabelaCreateComponent,
+    FilterPipePipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpModule,
     FormsModule,
+    DataTableModule,
     MDBBootstrapModule.forRoot()
   ],
   schemas: [NO_ERRORS_SCHEMA],

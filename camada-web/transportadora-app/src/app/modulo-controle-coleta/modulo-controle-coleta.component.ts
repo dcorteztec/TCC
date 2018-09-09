@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 
 import { Solicitacao } from '../Solicitacao'
 import { ModuloColetaServiceService } from '../modulo-coleta-service.service'
+
+import {AuthenticationService} from 'src/app/authentication.service'
 
 @Component({
   selector: 'app-modulo-controle-coleta',
@@ -13,13 +15,19 @@ import { ModuloColetaServiceService } from '../modulo-coleta-service.service'
 export class ModuloControleColetaComponent implements OnInit {
 
   solicitacoes: Solicitacao[];
-  solicitacao: Solicitacao;
-  
-  constructor(private router: Router, private moduloColetaService: ModuloColetaServiceService) { }
+  solicitacao: Solicitacao; 
+  public searchString: string; 
+  constructor(private router: Router, private moduloColetaService: ModuloColetaServiceService,
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.findAll();
   }
+
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
+  } 
 
   findAll(): void {
     this.moduloColetaService.findAll()
@@ -27,7 +35,7 @@ export class ModuloControleColetaComponent implements OnInit {
       solicitacoes => this.solicitacoes = solicitacoes,
       error => {
       this.router.navigate(['login']);
-      console.error('An error occurred in heroes component, navigating to login: ', error);
+      console.error('An error occurred in ModuloControleColetaComponent component, navigating to login: ', error);
       }
     )
 }
@@ -39,7 +47,10 @@ redirectNovaSolicitacaoPage() {
 editSolicitacaoPage(solicitacao: Solicitacao) {
   if (solicitacao) {
     this.solicitacao = solicitacao;
-    this.router.navigate(['/modulo-coleta-edit', solicitacao.numeroSolic]);
+    let navigationExtras: NavigationExtras = {
+      queryParams: this.solicitacoes,
+    };
+    this.router.navigate(['/modulo-coleta-edit', solicitacao.id]);
   }
 }
 
@@ -49,7 +60,7 @@ onSelect(solicitacao: Solicitacao): void {
 
 deleteSolicitacao(solicitacao: Solicitacao): void {
     this.moduloColetaService
-    .delete(solicitacao.numeroSolic)
+    .delete(solicitacao.id)
     .then(() => {
         this.solicitacoes = this.solicitacoes.filter(h => h !== solicitacao);
         if(this.solicitacao === solicitacao) {

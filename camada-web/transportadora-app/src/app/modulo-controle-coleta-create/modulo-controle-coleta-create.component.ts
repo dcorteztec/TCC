@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 import { Solicitacao } from '../Solicitacao'
 import { TransportadoraParceira } from '../TransportadoraParceira'
 import { ModuloColetaServiceService } from '../modulo-coleta-service.service'
 import { ModuloControleColetaComponent } from '../modulo-controle-coleta/modulo-controle-coleta.component'
+import {AuthenticationService} from 'src/app/authentication.service'
+import { FilterPipePipe } from 'src/app/filter-pipe.pipe'
 
 @Component({
   selector: 'app-modulo-controle-coleta-create',
@@ -16,14 +19,28 @@ export class ModuloControleColetaCreateComponent implements OnInit {
   
   transportadoras : TransportadoraParceira[];
   solicitacao: Solicitacao = new Solicitacao();
+  solicitacoes :Solicitacao[];
   controleColeta: ModuloControleColetaComponent;
   submitted = false;
-
-  constructor(private router: Router, private moduloColetaService: ModuloColetaServiceService) { }
+  
+  constructor(private router: Router, private rota: ActivatedRoute, 
+    private moduloColetaService: ModuloColetaServiceService,private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.findAllTransportadora();
+    this.rota.params.subscribe((parametro) => {
+    if(parametro.id)  
+    this.moduloColetaService.findByIdSolicitacao(parametro.id).then(res => 
+      {this.solicitacao = res
+       this.solicitacao.dataSolic = new DatePipe('en-US').transform(res.dataSolic, 'yyyy-MM-dd') 
+       this.solicitacao.dataVolta = new DatePipe('en-US').transform(res.dataVolta, 'yyyy-MM-dd')}); 
+    });
   }
+
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
+  } 
 
   findAllTransportadora(): void {
     this.moduloColetaService.findAllTransportadora()
@@ -37,12 +54,7 @@ export class ModuloControleColetaCreateComponent implements OnInit {
 }
 
   save(solicitacao: Solicitacao): void {
-    if(!solicitacao) { return; }
     this.moduloColetaService.create(solicitacao)
-    .then(solic => {
-      this.controleColeta.solicitacoes.push(solic);
-    });
-   
     this.router.navigate(['modulo-coleta']);
   }
 

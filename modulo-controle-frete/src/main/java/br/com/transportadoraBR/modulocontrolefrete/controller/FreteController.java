@@ -38,10 +38,19 @@ public class FreteController {
 	}
 	
 	@RequestMapping(value = "frete/{id}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	private ResponseEntity<Optional<Frete>> getSolic(@PathVariable("numeroSolic") Long numeroSolic,HttpServletRequest req, HttpServletResponse res) {
+	private ResponseEntity<Optional<Frete>> getSolic(@PathVariable("id") Long id,HttpServletRequest req, HttpServletResponse res) {
 		if(Utils.verificarHeader(req)) {
-			Optional<Frete> solicitacao = repository.findById(numeroSolic);
+			Optional<Frete> solicitacao = repository.findById(id);
 			return new ResponseEntity<Optional<Frete>>(solicitacao,HttpStatus.OK);
+		}
+		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).build();
+	}
+	
+	@RequestMapping(value = "ultimoKinical", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	private ResponseEntity<Optional<Integer>> ultimoKinical(HttpServletRequest req, HttpServletResponse res) {
+		if(Utils.verificarHeader(req)) {
+			Optional<Integer> solicitacao = repository.findUltimoKmInicial();
+			return new ResponseEntity<Optional<Integer>>(solicitacao,HttpStatus.OK);
 		}
 		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).build();
 	}

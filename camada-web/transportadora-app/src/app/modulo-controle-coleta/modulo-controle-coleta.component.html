@@ -1,6 +1,6 @@
 <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark bg-blue scrolling-navbar" [containerInside]="true">
     <logo>
-        <a class="logo navbar-brand" routerLink="/home"><strong>Navbar</strong></a>
+            <a class="logo navbar-brand" routerLink="/home"><strong>Transportadora BR</strong></a>
     </logo>
     <links>
         <ul class="navbar-nav mr-auto">
@@ -24,6 +24,11 @@
             <li class="nav-item waves-light" mdbRippleRadius>
                 <a class="nav-link"><i class="fa fa-instagram"></i></a>
             </li>
+            <li class="nav-item waves-light" mdbRippleRadius>
+                <button type="button" class="btn btn-default btn-sm" (click)="logout()">
+                        <span class="fa level-down" aria-hidden="true"></span>Sair
+                </button>
+            </li>      
         </ul>
     </links>
 </mdb-navbar>
@@ -47,9 +52,17 @@
                     </header>
                 </section>
                 
-                <section class="main">
-                    
-                    <table class="table">
+            <section class="main">
+                    <form>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                                    <input type="text" class="form-control" name="searchString" placeholder="Nome Solicitante..." [(ngModel)]="searchString">
+                                </div>
+                            </div>
+                        </form>
+                <div class="table-responsive">
+                    <table class="table table-hover table-responsive-md mb-0">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -62,21 +75,42 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let solic of solicitacoes">
+                            <tr *ngFor="let solic of solicitacoes | filterPipe : 'nomeSolic': searchString; let i = index ">
                                 <td></td>
-                                <th scope="row">{{solic.numeroSolic}}</th>
+                                <th scope="row">{{solic.id}}</th>
                                 <td>{{solic.dataSolic | date:'dd-MM-yyyy'}}</td>
                                 <td>{{solic.dataVolta | date:'dd-MM-yyyy'}}</td>
                                 <td>{{solic.nomeSolic}} </td>
                                 <td>{{solic.emailSolic}}</td>
                                 <td>
-                                    <button type="button" class="btn btn-success" (click)="editSolicitacaoPage(solic)">Edit</button>
-                                    <button type="button" class="btn btn-danger" (click)="deleteSolicitacao(solic)">Delete</button>
+                                    <button type="button" class="btn btn-success" (click)="editSolicitacaoPage(solic)">Editar</button>
+                                    <button type="button" class="btn btn-danger" (click)="basicModal.show(solic)">Deletar</button>
                                 </td>
+                                <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                                                <span aria-hidden="true">×</span>
+                                                </button>
+                                                <h4 class="modal-title w-100" id="myModalLabel">Desejar Deletar essa Solicitação ?</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                ...
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Fechar</button>
+                                                <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="deleteSolicitacao(solic)" mdbWavesEffect>Deletar</button>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
                             </tr>
                             
                         </tbody>
                     </table>
+                    </div>
                 </section>     
     </div>
 </main>

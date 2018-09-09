@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http } from "@angular/http";
-import { AuthenticationService } from './authentication.service';
-import { Observable } from 'rxjs/Observable';
+import { AuthenticationService } from './authentication.service';;
 import 'rxjs/add/operator/toPromise';
-import { map } from 'rxjs/operators'; 
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
@@ -11,26 +9,30 @@ import 'rxjs/add/operator/map';
 import { Solicitacao } from './Solicitacao'
 import { TransportadoraParceira } from './TransportadoraParceira'
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class ModuloColetaServiceService {
+
+  constructor(
+    private http: Http,
+    private authenticationService: AuthenticationService) {
+  }
+
+  private headers = new Headers({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + this.authenticationService.getToken()
+  });
 
   private listSolic = 'http://localhost:8080/modulo-coleta/listSolic';
   private saveUrl = 'http://localhost:8080/modulo-coleta/saveSolic';
   private updateUrl = 'http://localhost:8080/modulo-coleta/update';
   private deleteteUrl = 'http://localhost:8080/modulo-coleta/delete';
   private listTransp = 'http://localhost:8080/modulo-coleta/listTransportadora';
+  private getSolicitacao = 'http://localhost:8080/modulo-coleta/solicitacao';
+  
 
-  private headers = new Headers({
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer ' + this.authenticationService.getToken()
-    });
-
- constructor(
-   private http: Http,
-   private authenticationService: AuthenticationService) {
- }
  findAll(): Promise<Solicitacao[]> {
   return this.http
    .get(this.listSolic, {headers: this.headers})
@@ -50,13 +52,23 @@ findAllTransportadora(): Promise<TransportadoraParceira[]> {
 }
 
 private handleError(error: any): Promise<any> {
-  console.error('An error occurred: ', error); // for demo only
+  console.error('An error occurred: ', error); 
   return Promise.reject(error.message || error);
 }
  
 getSolicitcao(id: number): Promise<Solicitacao> {
   return this.findAll()
-    .then(solicitacoes => solicitacoes.find(solicitacao => solicitacao.numeroSolic === id))
+    .then(solicitacoes => solicitacoes.find(solicitacao => solicitacao.id === id))
+}
+
+findByIdSolicitacao(id: number): Promise<Solicitacao> {
+  const url = `${this.getSolicitacao}/${id}`;
+  console.log(`solicitacao.findByIdSolicitacao - get ${id}`);
+  return this.http
+   .get(url, {headers: this.headers})
+   .toPromise()
+   .then(response => response.json() as Solicitacao)
+   .catch(this.handleError);
 }
 
 create(solicitacao: Solicitacao): Promise<Solicitacao> {
@@ -68,7 +80,7 @@ create(solicitacao: Solicitacao): Promise<Solicitacao> {
 }
 
 update(solicitacao: Solicitacao): Promise<Solicitacao> {
-  const url = `${this.updateUrl}/${solicitacao.numeroSolic}`;
+  const url = `${this.updateUrl}/${solicitacao.id}`;
   return this.http
     .put(url, JSON.stringify(Solicitacao), {headers: this.headers})
     .toPromise()

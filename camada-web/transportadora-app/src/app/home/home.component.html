@@ -1,6 +1,6 @@
 <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark bg-blue scrolling-navbar" [containerInside]="true">
         <logo>
-            <a class="logo navbar-brand" routerLink="/home"><strong>Navbar</strong></a>
+                <a class="logo navbar-brand" routerLink="/home"><strong>Transportadora BR</strong></a>
         </logo>
         <links>
             <ul class="navbar-nav mr-auto">
@@ -24,6 +24,11 @@
                 <li class="nav-item waves-light" mdbRippleRadius>
                     <a class="nav-link"><i class="fa fa-instagram"></i></a>
                 </li>
+                <li class="nav-item waves-light" mdbRippleRadius>
+                        <button type="button" class="btn btn-default btn-sm" (click)="logout()">
+                                <span class="fa level-down" aria-hidden="true"></span>Sair
+                        </button>
+                    </li>  
             </ul>
         </links>
       </mdb-navbar>
@@ -34,16 +39,16 @@
           data-target="#feature">
       
             <!--Section heading-->
-            <h1 class="section-heading pt-4">Why is it so great?</h1>
+            <h1 class="section-heading pt-4">Bem vindo !! Sr(a){{usuario}}</h1>
             <!--Section description-->
-            <p class="section-description lead grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error amet numquam iure provident voluptate esse quasi, veritatis totam voluptas nostrum quisquam eum porro a pariatur accusamus veniam. Quia, minima?</p>
+            <p class="section-description lead grey-text">Sistema da Transportadora BR </p>
         
             <!--Grid row-->
             <div class="row features-small pt-5">
         
                 <!--Grid column-->
                 <div class="col-lg-5 mb-r center-on-small-only">
-                    <img src="https://mdbootstrap.com/img/Mockups/Transparent/Small/ipad-portfolio2.png" alt="" class="img-fluid z-depth-0">
+                    <img src="https://www.gokamz.com/assets/images/icon_rental_blue-f3f477639c6ed557fdf5ad18a8e2c93354ef4449c867b1a86e436fe7bc6d3e9b.png" alt="" class="img-fluid z-depth-0">
                 </div>
                 <!--Grid column-->
         
@@ -53,11 +58,11 @@
                     <!--Grid row-->
                     <div class="row pb-3">
                         <div class="col-2 col-md-1">
-                            <i class="fa fa-bank blue-text"></i>
+                            <i class="fa fa-check blue-text"></i>
                         </div>
                         <div class="col-10">
-                            <h5 class="feature-title">Safety</h5>
-                            <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima assumenda deleniti hic.</p>
+                            <h5 class="feature-title">Missão</h5>
+                            <p class="grey-text">Contribuir para a sustentabilidade e o desenvolvimento humano, gerando rentabilidade e satisfação dos clientes através de uma cadeia logística eficiente.</p>
                         </div>
                     </div>
                     <!--Grid row-->
@@ -65,11 +70,11 @@
                     <!--Grid row-->
                     <div class="row pb-3">
                         <div class="col-2 col-md-1">
-                            <i class="fa fa-code blue-text"></i>
+                            <i class="fa fa-check blue-text"></i>
                         </div>
                         <div class="col-10">
-                            <h5 class="feature-title">Technology</h5>
-                            <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima assumenda deleniti hic.</p>
+                            <h5 class="feature-title">Visão</h5>
+                            <p class="grey-text">Ser referência no transporte rodoviário de cargas, reconhecida pela qualidade, confiança e inovação da prestação de serviços.</p>
                         </div>
                     </div>
                     <!--Grid row-->
@@ -77,11 +82,12 @@
                     <!--Grid row-->
                     <div class="row pb-3">
                         <div class="col-2 col-md-1">
-                            <i class="fa fa-money blue-text"></i>
+                            <i class="fa fa-check blue-text"></i>
                         </div>
                         <div class="col-10">
-                            <h5 class="feature-title">Finance</h5>
-                            <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima assumenda deleniti hic.</p>
+                            <h5 class="feature-title">Valores</h5>
+                            <p class="grey-text">Ética, Qualidade, Rentabilidade,
+                                    Profissionalismo.</p>
                         </div>
                     </div>
                     <!--Grid row-->

@@ -24,7 +24,7 @@ public class Solicitacao extends AuditModel{
             sequenceName = "solicitacao_sequence",
             initialValue = 1000
     )
-	private Long numeroSolic;
+	private Long id;
 	private Date dataSolic;
 	private Date dataVolta;
 	private String nomeSolic;
@@ -43,12 +43,6 @@ public class Solicitacao extends AuditModel{
 	@JoinColumn(name = "id_transportadora", nullable = true)
 	private TransportadoraParceira transportadoraParceira;
        
-	public Long getNumeroSolic() {
-		return numeroSolic;
-	}
-	public void setNumeroSolic(Long numeroSolic) {
-		this.numeroSolic = numeroSolic;
-	}
 	public Date getDataSolic() {
 		return dataSolic;
 	}
@@ -120,6 +114,12 @@ public class Solicitacao extends AuditModel{
 	}
 	public void setIdTransportadora(Long idTransportadora) {
 		this.idTransportadora = idTransportadora;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

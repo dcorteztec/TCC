@@ -22,6 +22,7 @@ public class Frete extends AuditModel{
 	private Integer kmInicial;
 	private Integer kmFinal;
 	private Double custoPorKm;
+	private String tipoCarga;
 	
 	public Integer getKmInicial() {
 		return kmInicial;
@@ -46,6 +47,12 @@ public class Frete extends AuditModel{
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public String getTipoCarga() {
+		return tipoCarga;
+	}
+	public void setTipoCarga(String tipoCarga) {
+		this.tipoCarga = tipoCarga;
 	}
 	
 	

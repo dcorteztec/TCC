@@ -9,8 +9,8 @@ import { CanActivateAuthGuard } from './CanActivateAuthGuard'
 import { ModuloControleTabelaCreateComponent } from './modulo-controle-tabela-create/modulo-controle-tabela-create.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'home',       component: HomeComponent, canActivate: [CanActivateAuthGuard] },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home',       component: HomeComponent },
   { path: 'login',      component: LoginComponent},
   { path: 'modulo-coleta',      component: ModuloControleColetaComponent, canActivate: [CanActivateAuthGuard]},
   { path: 'modulo-coleta-create',      component: ModuloControleColetaCreateComponent, canActivate: [CanActivateAuthGuard]},

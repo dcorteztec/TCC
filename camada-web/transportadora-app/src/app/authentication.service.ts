@@ -44,7 +44,13 @@ export class AuthenticationService {
 
     getLogin(): String {
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        return currentUser.username ? currentUser.username : "";
+        if(currentUser){
+            return currentUser.username
+        }else{
+            localStorage.setItem('currentUser', JSON.stringify({ username: "Usuário Anônimo" }));
+            var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            return currentUser.username
+        }
       }
  
     logout(): void {

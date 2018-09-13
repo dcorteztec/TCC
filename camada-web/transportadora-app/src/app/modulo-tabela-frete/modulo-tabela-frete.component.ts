@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from 'src/app/authentication.service'
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
-
+import swal from 'sweetalert2';
 import { ModuloFreteServiceService } from '../modulo-frete-service.service'
 
 import { Frete } from '../Frete'
@@ -63,6 +63,7 @@ export class ModuloTabelaFreteComponent implements OnInit {
             this.frete = null;
         }
       });
+      swal('Valor de Frete','Deletada com sucesso!!','success' ); 
   }
 
 }

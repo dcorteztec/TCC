@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import {AuthenticationService} from 'src/app/authentication.service'
 import {ModuloFreteServiceService } from 'src/app/modulo-frete-service.service'
-
+import swal from 'sweetalert2';
 import { Frete } from '../Frete'
 
 @Component({
@@ -35,7 +35,8 @@ export class ModuloControleTabelaCreateComponent implements OnInit {
 
   save(frete: Frete): void {
     this.moduloFreteServiceService.create(frete)
-    this.router.navigate(['modulo-frete']);
+    swal('Valor de Frete','Cadastrada ou Editada com sucesso!!'  ,'success' );
+    //this.router.navigate(['modulo-frete']);
   }
 
   onSubmit() {

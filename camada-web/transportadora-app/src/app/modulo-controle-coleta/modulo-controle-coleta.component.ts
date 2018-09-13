@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
-
 import { Solicitacao } from '../Solicitacao'
 import { ModuloColetaServiceService } from '../modulo-coleta-service.service'
-
 import {AuthenticationService} from 'src/app/authentication.service'
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modulo-controle-coleta',
@@ -65,7 +64,8 @@ deleteSolicitacao(solicitacao: Solicitacao): void {
         this.solicitacoes = this.solicitacoes.filter(h => h !== solicitacao);
         if(this.solicitacao === solicitacao) {
           this.solicitacao = null;
-      }
+      } 
     });
+    swal('Solicitação','Deletada com sucesso!!','success' ); 
 }
 }

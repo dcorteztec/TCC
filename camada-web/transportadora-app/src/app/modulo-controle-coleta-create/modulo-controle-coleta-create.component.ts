@@ -6,8 +6,8 @@ import { Solicitacao } from '../Solicitacao'
 import { TransportadoraParceira } from '../TransportadoraParceira'
 import { ModuloColetaServiceService } from '../modulo-coleta-service.service'
 import { ModuloControleColetaComponent } from '../modulo-controle-coleta/modulo-controle-coleta.component'
-import {AuthenticationService} from 'src/app/authentication.service'
-import { FilterPipePipe } from 'src/app/filter-pipe.pipe'
+import { AuthenticationService } from 'src/app/authentication.service'
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modulo-controle-coleta-create',
@@ -55,7 +55,8 @@ export class ModuloControleColetaCreateComponent implements OnInit {
 
   save(solicitacao: Solicitacao): void {
     this.moduloColetaService.create(solicitacao)
-    this.router.navigate(['modulo-coleta']);
+    swal('Solicitação','Cadastrada ou Editada com sucesso!!'  ,'success' );
+    //this.router.navigate(['modulo-coleta']);
   }
 
   onSubmit() {

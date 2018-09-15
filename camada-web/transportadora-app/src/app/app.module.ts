@@ -19,6 +19,7 @@ import { ModuloControleColetaCreateComponent } from './modulo-controle-coleta-cr
 import { ModuloControleTabelaCreateComponent } from './modulo-controle-tabela-create/modulo-controle-tabela-create.component';
 import { FilterPipePipe } from './filter-pipe.pipe';
 import {DataTableModule} from "angular-6-datatable";
+import { ModuloControleFreteSimulacaoComponent } from './modulo-controle-frete-simulacao/modulo-controle-frete-simulacao.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import {DataTableModule} from "angular-6-datatable";
     ModuloTabelaFreteComponent,
     ModuloControleColetaCreateComponent,
     ModuloControleTabelaCreateComponent,
-    FilterPipePipe
+    FilterPipePipe,
+    ModuloControleFreteSimulacaoComponent
   ],
   imports: [
     BrowserModule,

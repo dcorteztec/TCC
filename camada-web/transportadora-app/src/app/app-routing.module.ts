@@ -6,6 +6,7 @@ import { ModuloControleColetaComponent} from './modulo-controle-coleta/modulo-co
 import { ModuloTabelaFreteComponent} from './modulo-tabela-frete/modulo-tabela-frete.component'
 import { ModuloControleColetaCreateComponent } from './modulo-controle-coleta-create/modulo-controle-coleta-create.component'
 import { CanActivateAuthGuard } from './CanActivateAuthGuard'
+import { ModuloControleFreteSimulacaoComponent } from './modulo-controle-frete-simulacao/modulo-controle-frete-simulacao.component'
 import { ModuloControleTabelaCreateComponent } from './modulo-controle-tabela-create/modulo-controle-tabela-create.component';
 
 const routes: Routes = [
@@ -17,7 +18,9 @@ const routes: Routes = [
   { path: 'modulo-coleta-edit/:id',      component: ModuloControleColetaCreateComponent, canActivate: [CanActivateAuthGuard]},
   { path: 'modulo-frete',       component: ModuloTabelaFreteComponent, canActivate: [CanActivateAuthGuard]},
   { path: 'modulo-frete-create',      component: ModuloControleTabelaCreateComponent, canActivate: [CanActivateAuthGuard]},
-  { path: 'modulo-frete-edit/:id',      component: ModuloControleTabelaCreateComponent, canActivate: [CanActivateAuthGuard]}
+  { path: 'modulo-frete-edit/:id',      component: ModuloControleTabelaCreateComponent, canActivate: [CanActivateAuthGuard]},
+  { path: 'modulo-controle-frete-simulacao',      component: ModuloControleFreteSimulacaoComponent, canActivate: [CanActivateAuthGuard]}
+
 
 ];
 

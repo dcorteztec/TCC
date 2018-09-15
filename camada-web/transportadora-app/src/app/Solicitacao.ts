@@ -14,6 +14,7 @@ export class Solicitacao {
     uf:string;
     transportadoraParceira:TransportadoraParceira;
     idTransportadora:number;
+    idEmpresa:number;
 
     //constructor(numeroSolic: number, dataSolic: Date, dataVolta: Date, nomeSolic: string,
      //   emailSolic:string,endeSolic:string,veiculo:string,demandaTransferida:boolean,

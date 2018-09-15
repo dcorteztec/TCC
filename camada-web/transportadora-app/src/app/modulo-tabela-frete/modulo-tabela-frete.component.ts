@@ -30,6 +30,7 @@ export class ModuloTabelaFreteComponent implements OnInit {
       fretes => this.fretes = fretes,
       error => {
       this.router.navigate(['login']);
+      swal('Frete','An error occurred in ModuloTabelaFreteComponent component, navigating to login: '  ,'error' );
       console.error('An error occurred in ModuloTabelaFreteComponent component, navigating to login: ', error);
       }
     )

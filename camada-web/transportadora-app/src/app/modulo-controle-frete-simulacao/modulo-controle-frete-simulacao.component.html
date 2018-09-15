@@ -43,25 +43,20 @@
       <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
             <div class="form-row">
               <div class="form-group col-md-3">
-                <label for="inputEmail4">De Km</label>
-                <input type="number" class="form-control" id="inputAddress" placeholder="Km Inicial" name="kmInicial"  [(ngModel)]="frete.kmInicial" #kmInicial="ngModel" required>
-                <span *ngIf="f.submitted && !kmInicial.valid" class="help-block">De KM é obrigatório</span>
+                <label for="inputEmail4">Distância(KM) </label>
+                <input type="number" class="form-control" id="inputAddress" placeholder="Distância(KM)" name="distancia"  [(ngModel)]="simulcaoFrete.kmRodado" #distancia="ngModel" required>
+                <span *ngIf="f.submitted && !distancia.valid" class="help-block">Km Rodado é obrigatório</span>
             </div>
               <div class="form-group col-md-3">
-                <label for="inputPassword4">Km Final</label>
-                <input type="number"  class="form-control" id="inputPassword4" placeholder="Km Final" name="kmFinal"  [(ngModel)]="frete.kmFinal" #kmFinal="ngModel" required>
-                <span *ngIf="f.submitted && !kmFinal.valid" class="help-block">Km Final obrigatório</span>
+                <label for="inputPassword4">Quantidade de Eixos</label>
+                <input type="number"  class="form-control" id="inputPassword4" placeholder="Quantidade de Eixos" name="qtdEixos"  [(ngModel)]="simulcaoFrete.qtdEixos" #qtdEixos="ngModel" required>
+                <span *ngIf="f.submitted && !qtdEixos.valid" class="help-block">Quantidade de Eixos</span>
             </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="inputAddress">Custo por KM</label>
-                    <input type="number" class="form-control" id="inputAddress" placeholder="Custo por KM" name="custoPorKm"  [(ngModel)]="frete.custoPorKm" #custoPorKm="ngModel" required>
-                    <span *ngIf="f.submitted && !custoPorKm.valid" class="help-block">Custo por KM é obrigatório</span>
-                </div>
-                <div class="form-group col-md-4">
                     <label for="inputState">Tipo de Carga</label>
-                    <select id="inputState" class="form-control" name="tipoCarga"  [(ngModel)]="frete.tipoCarga" #tipoCarga="ngModel" required>
+                    <select id="inputState" class="form-control" name="tipoCarga"  [(ngModel)]="simulcaoFrete.tipoCarga" #tipoCarga="ngModel" required>
                       <option selected>Tipo de Carga...</option>
                       <option>Carga Geral</option>
                       <option>Carga Granel</option>
@@ -72,7 +67,7 @@
                     <span *ngIf="f.submitted && !tipoCarga.valid" class="help-block">Tipo de Carga é obrigatório</span>
                   </div>
             </div>
-            <button [disabled]="loading" class="btn btn-primary">Cadastrar</button>
+            <button [disabled]="loading" class="btn btn-primary">Simular</button>
           <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
           </form>
        

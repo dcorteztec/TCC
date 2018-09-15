@@ -6,7 +6,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 
-import { Frete } from './Frete'
+import { Frete } from './Frete';
+import { SimulcaoFreteDTO } from './SimulcaoFreteDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,7 @@ export class ModuloFreteServiceService {
   private deleteteUrl = 'http://localhost:8080/modulo-frete/delete';
   private urlFrete = 'http://localhost:8080/modulo-frete/frete';
   private urlUltimoKinical = 'http://localhost:8080/modulo-frete/ultimoKinical';
+  private urlSimulacao = 'http://localhost:8080/modulo-frete/simulacaoFrete'
 
   findAll(): Promise<Frete[]> {
     return this.http
@@ -71,6 +73,14 @@ export class ModuloFreteServiceService {
   create(frete: Frete): Promise<Frete> {
     return this.http
       .post(this.saveUrl, JSON.stringify(frete), {headers: this.headers})
+      .toPromise()
+      .then(res => res.json())
+      .catch(this.handleError)
+  }
+
+  simular(simulacaoFrete: SimulcaoFreteDTO): Promise<SimulcaoFreteDTO> {
+    return this.http
+      .post(this.urlSimulacao, JSON.stringify(simulacaoFrete), {headers: this.headers})
       .toPromise()
       .then(res => res.json())
       .catch(this.handleError)

@@ -59,7 +59,7 @@ export class ModuloControleColetaCreateComponent implements OnInit {
     //this.router.navigate(['modulo-coleta']);
   }
 
-  onSubmit() {
+  onSubmit() { 
     this.submitted = true;
     this.save(this.solicitacao);
   }

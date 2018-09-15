@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import {AuthenticationService} from 'src/app/authentication.service'
-import {ModuloFreteServiceService } from 'src/app/modulo-frete-service.service'
+import { AuthenticationService } from 'src/app/authentication.service'
+import { ModuloFreteServiceService } from 'src/app/modulo-frete-service.service'
 import swal from 'sweetalert2';
 import { Frete } from '../Frete'
 
 @Component({
   selector: 'app-modulo-controle-tabela-create',
   templateUrl: './modulo-controle-tabela-create.component.html',
-  styleUrls: ['./modulo-controle-tabela-create.component.css']
+  styleUrls: ['./modulo-controle-tabela-create.component.css'],
+  providers: [ModuloFreteServiceService]
 })
 export class ModuloControleTabelaCreateComponent implements OnInit {
 

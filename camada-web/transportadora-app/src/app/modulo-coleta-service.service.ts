@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 
 import { Solicitacao } from './Solicitacao'
 import { TransportadoraParceira } from './TransportadoraParceira'
+import { EmpresaParceira } from './EmpresaParceira'
 
 
 @Injectable({
@@ -30,6 +31,7 @@ export class ModuloColetaServiceService {
   private updateUrl = 'http://localhost:8080/modulo-coleta/update';
   private deleteteUrl = 'http://localhost:8080/modulo-coleta/delete';
   private listTransp = 'http://localhost:8080/modulo-coleta/listTransportadora';
+  private listEmpresas = 'http://localhost:8080/modulo-coleta/listEmpresaParceira';
   private getSolicitacao = 'http://localhost:8080/modulo-coleta/solicitacao';
   
 
@@ -47,6 +49,15 @@ findAllTransportadora(): Promise<TransportadoraParceira[]> {
    .get(this.listTransp, {headers: this.headers})
    .toPromise()
    .then(response => response.json() as TransportadoraParceira[])
+   .catch(this.handleError);
+
+}
+
+findAllEmpresaParceira(): Promise<EmpresaParceira[]> {
+  return this.http
+   .get(this.listEmpresas, {headers: this.headers})
+   .toPromise()
+   .then(response => response.json() as EmpresaParceira[])
    .catch(this.handleError);
 
 }

@@ -45,7 +45,7 @@ public class SolicitacaoController {
 			List<Solicitacao> list = repository.findAll();
 			return new ResponseEntity<List<Solicitacao>>(list, HttpStatus.OK);
 		}
-		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).build();
+		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).contentType(MediaType.APPLICATION_JSON).build();
 	}
 	
 	@RequestMapping(value="listTransportadora" ,method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -54,17 +54,29 @@ public class SolicitacaoController {
 			List<TransportadoraParceira> list = transportadoraRepository.findAll();
 			return new ResponseEntity<List<TransportadoraParceira>>(list, HttpStatus.OK);
 		}
-		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).build();
+		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).contentType(MediaType.APPLICATION_JSON).build();
+	}
+	
+	@RequestMapping(value="listEmpresaParceira" ,method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	private ResponseEntity<List<EmpresaParceira>> listEmpresaParceira(HttpServletRequest req, HttpServletResponse res){
+		if(Utils.verificarHeader(req)) {
+			List<EmpresaParceira> list = empresaParceiraRepository.findAll();
+			return new ResponseEntity<List<EmpresaParceira>>(list, HttpStatus.OK);
+		}
+		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).contentType(MediaType.APPLICATION_JSON).build();
 	}
 	
 	@RequestMapping(value = "solicitacao/{id}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	private ResponseEntity<Optional<Solicitacao>> getSolic(@PathVariable("id") Long numeroSolic,HttpServletRequest req, HttpServletResponse res) {
 		if(Utils.verificarHeader(req)) {
 			Optional<Solicitacao> solicitacao = repository.findById(numeroSolic);
-			solicitacao.get().setIdTransportadora(solicitacao.get().getTransportadoraParceira().getCodTransportadora());
+			if(solicitacao.get().getTransportadoraParceira()!=null)
+				solicitacao.get().setIdTransportadora(solicitacao.get().getTransportadoraParceira().getCodTransportadora());
+			if(solicitacao.get().getEmpresaParceira()!=null)
+				solicitacao.get().setIdEmpresaParceira(solicitacao.get().getEmpresaParceira().getCodEmpresa());
 			return new ResponseEntity<Optional<Solicitacao>>(solicitacao,HttpStatus.OK);
 		}
-		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).build();
+		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).contentType(MediaType.APPLICATION_JSON).build();
 		
 	}
 	
@@ -78,6 +90,10 @@ public class SolicitacaoController {
 				EmpresaParceira empresa = empresaParceiraRepository.findByName(solicitacao.getEmpresaParceira().getNome());
 				if(empresa==null) {
 					empresaParceiraRepository.save(solicitacao.getEmpresaParceira());
+					EmpresaParceira empresaNova = empresaParceiraRepository.findByName(solicitacao.getEmpresaParceira().getNome());
+					solicitacao.setEmpresaParceira(empresaNova);
+				}else {
+					solicitacao.setEmpresaParceira(empresa);
 				}
 			}
 			if(solicitacao.getDemandaTransferida()&&solicitacao.getIdTransportadora()!=null) {
@@ -89,7 +105,7 @@ public class SolicitacaoController {
 			repository.flush();
 			repository.save(solicitacao);
 		}
-		return ResponseEntity.status(HttpStatus.CREATED).build();
+		return ResponseEntity.status(HttpStatus.CREATED).contentType(MediaType.APPLICATION_JSON).build();
 	}
 	
 	@PutMapping(value="update/{id}")
@@ -106,7 +122,7 @@ public class SolicitacaoController {
 			}
 			
 		}
-		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).build();
+		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).contentType(MediaType.APPLICATION_JSON).build();
 	}
 	
 	@DeleteMapping("delete/{id}")

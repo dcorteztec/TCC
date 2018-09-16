@@ -36,7 +36,7 @@ public class FreteController {
 			List<Frete> list = repository.findAll(sortByIdAsc());
 			return new ResponseEntity<List<Frete>>(list, HttpStatus.OK);
 		}
-		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).build();
+		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).contentType(MediaType.APPLICATION_JSON).build();
 	}
 	
 	private Sort sortByIdAsc() {
@@ -49,7 +49,7 @@ public class FreteController {
 			Optional<Frete> solicitacao = repository.findById(id);
 			return new ResponseEntity<Optional<Frete>>(solicitacao,HttpStatus.OK);
 		}
-		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).build();
+		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).contentType(MediaType.APPLICATION_JSON).build();
 	}
 	
 	@RequestMapping(value = "ultimoKinical", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -58,7 +58,7 @@ public class FreteController {
 			Optional<Integer> solicitacao = repository.findUltimoKmInicial();
 			return new ResponseEntity<Optional<Integer>>(solicitacao,HttpStatus.OK);
 		}
-		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).build();
+		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).contentType(MediaType.APPLICATION_JSON).build();
 	}
 	
 	@PostMapping(value="saveFrete")
@@ -66,7 +66,7 @@ public class FreteController {
 		if(Utils.verificarHeader(req)) {
 			repository.save(frete);
 		}
-		return ResponseEntity.status(HttpStatus.CREATED).build();
+		return ResponseEntity.status(HttpStatus.CREATED).contentType(MediaType.APPLICATION_JSON).build();
 	}
 	
 	@PostMapping(value="simulacaoFrete")
@@ -79,7 +79,7 @@ public class FreteController {
 			return new ResponseEntity<Optional<SimulcaoFreteDTO>>(Optional.of(simulacao),HttpStatus.OK);
 			
 		}
-		return ResponseEntity.status(HttpStatus.CREATED).build();
+		return ResponseEntity.status(HttpStatus.CREATED).contentType(MediaType.APPLICATION_JSON).build();
 	}
 	
 	@PostMapping(value="update/{id}")
@@ -96,7 +96,7 @@ public class FreteController {
 			}
 			
 		}
-		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).build();
+		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).contentType(MediaType.APPLICATION_JSON).build();
 	}
 	
 	@DeleteMapping("delete/{id}")

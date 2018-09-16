@@ -36,6 +36,8 @@ public class Solicitacao extends AuditModel{
 	private Boolean demandaTransferida;
 	@Transient
 	private Long idTransportadora;
+	@Transient
+	private Long idEmpresaParceira;
 	@ManyToOne
 	@JoinColumn(name = "id_empresa", nullable = true)
 	private EmpresaParceira empresaParceira;
@@ -120,6 +122,12 @@ public class Solicitacao extends AuditModel{
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public Long getIdEmpresaParceira() {
+		return idEmpresaParceira;
+	}
+	public void setIdEmpresaParceira(Long idEmpresaParceira) {
+		this.idEmpresaParceira = idEmpresaParceira;
 	}
 	
 }

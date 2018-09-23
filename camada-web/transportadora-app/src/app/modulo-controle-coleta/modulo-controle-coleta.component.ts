@@ -4,7 +4,7 @@ import { Solicitacao } from '../Solicitacao'
 import { ModuloColetaServiceService } from '../modulo-coleta-service.service'
 import {AuthenticationService} from 'src/app/authentication.service'
 import swal from 'sweetalert2';
-
+ 
 @Component({
   selector: 'app-modulo-controle-coleta',
   templateUrl: './modulo-controle-coleta.component.html',

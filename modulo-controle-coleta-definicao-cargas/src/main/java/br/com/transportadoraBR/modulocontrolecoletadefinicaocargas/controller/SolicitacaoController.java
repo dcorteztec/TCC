@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +40,7 @@ public class SolicitacaoController {
 	@Autowired
 	private TransportadoraParceiraRepository transportadoraRepository;
 	
+	@Cacheable(value = "list-solic")
 	@RequestMapping(value="listSolic" ,method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	private ResponseEntity<List<Solicitacao>> listSolic(HttpServletRequest req, HttpServletResponse res){
 		if(Utils.verificarHeader(req)) {
@@ -47,7 +49,7 @@ public class SolicitacaoController {
 		}
 		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).contentType(MediaType.APPLICATION_JSON).build();
 	}
-	
+	@Cacheable(value = "list-transportadora")
 	@RequestMapping(value="listTransportadora" ,method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	private ResponseEntity<List<TransportadoraParceira>> listTransportadora(HttpServletRequest req, HttpServletResponse res){
 		if(Utils.verificarHeader(req)) {
@@ -56,7 +58,7 @@ public class SolicitacaoController {
 		}
 		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).contentType(MediaType.APPLICATION_JSON).build();
 	}
-	
+	@Cacheable(value = "list-empresa")
 	@RequestMapping(value="listEmpresaParceira" ,method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	private ResponseEntity<List<EmpresaParceira>> listEmpresaParceira(HttpServletRequest req, HttpServletResponse res){
 		if(Utils.verificarHeader(req)) {
@@ -65,7 +67,7 @@ public class SolicitacaoController {
 		}
 		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).contentType(MediaType.APPLICATION_JSON).build();
 	}
-	
+	@Cacheable(value = "get-solic")
 	@RequestMapping(value = "solicitacao/{id}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	private ResponseEntity<Optional<Solicitacao>> getSolic(@PathVariable("id") Long numeroSolic,HttpServletRequest req, HttpServletResponse res) {
 		if(Utils.verificarHeader(req)) {
@@ -79,6 +81,7 @@ public class SolicitacaoController {
 		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).contentType(MediaType.APPLICATION_JSON).build();
 		
 	}
+	
 	
 	@PostMapping(value="saveSolic")
 	private ResponseEntity<Object> saveSolic(@RequestBody Solicitacao solicitacao,HttpServletRequest req, HttpServletResponse res) {

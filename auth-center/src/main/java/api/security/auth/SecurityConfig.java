@@ -1,6 +1,7 @@
 package api.security.auth;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -9,8 +10,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.session.SessionManagementFilter;
 
 import api.security.auth.jwt.JwtAuthenticationConfig;
 import api.security.auth.jwt.JwtUsernamePasswordAuthenticationFilter;
@@ -21,6 +22,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired JwtAuthenticationConfig config;
 
+    @Autowired
+	DataSource dataSource;
+    
     @Bean
     public JwtAuthenticationConfig jwtConfig() {
         return new JwtAuthenticationConfig();
@@ -28,10 +32,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin").password("{noop}admin").roles("ADMIN", "USER").and()
-                .withUser("dcortez").password("{noop}opensuse10").roles("ADMIN","USER").and()
-                .withUser("empresa_parceira").password("{noop}opensuse10").roles("USER");
+        auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder()).
+        dataSource(dataSource).
+        usersByUsernameQuery("select username,password, enabled from users where username=?")
+        .authoritiesByUsernameQuery("select username, authority from authorities where username=?");
+                //.withUser("admin").password("{noop}admin").roles("ADMIN", "USER").and()
+                //.withUser("dcortez").password("{noop}opensuse10").roles("ADMIN","USER").and()
+                //.withUser("empresa_parceira").password("{noop}opensuse10").roles("USER");
     }
 
     @Override

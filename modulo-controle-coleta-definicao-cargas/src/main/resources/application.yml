@@ -19,6 +19,11 @@ spring:
     url: jdbc:postgresql://localhost:5432/modulo-coleta
     username: postgres
     password: root
+  cache:
+    type: redis
+  redis:
+    host: localhost
+    port: 6379
 
 info:
   app:

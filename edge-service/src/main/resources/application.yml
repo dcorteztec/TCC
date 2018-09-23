@@ -18,7 +18,12 @@ management:
 spring:
   application:
     name: api-gateway
-
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/controle-acesso
+    username: postgres
+    password: root
+    
 eureka:
   client:
     serviceUrl:
